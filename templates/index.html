@@ -1,0 +1,225 @@
+<html>
+<head>
+<style>
+.button {
+background-color: #23b83c;
+	border: 2px solid #020353;
+	color: whitesmoke;
+	padding: 0.5em 0.5em;
+
+	text-decoration: none;
+	font-size: 20px;
+	display: inline-block;
+    margin-left:0px ;
+    border-radius: 5px;
+	box-shadow: 3px 3px 8px 0 #000; 
+}
+
+body {
+  background-image: url("{{url_for('static', filename='background.jpg')}}");
+  background-repeat: no-repeat;
+  
+
+  background-size: 100% 100%;
+}
+
+#English{
+    padding: 30px;
+    /* text-align: center; */
+  /* background-color: #000; */
+  width: 263px;
+  height: 313px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color:rgba(255, 252, 252, 0.7);
+  transition: all 0.3s ease-out;
+}
+h1{
+   background-color: Green;
+  color: white;
+}
+h3{
+   background-color: green;
+  color: white;
+}
+
+#lang{
+    display: flex;
+    justify-content: space-around;
+}
+
+#deco{
+    font-size: 20px;
+   
+}
+
+#capture{
+    background-color:rgba(255, 252, 252, 0.7);
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    width: 382px;
+    height: 350px;
+    border-radius: 18px;
+}
+.white_content {
+    margin-left:250px ;
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 30%;
+  height: 60%;
+  padding: 16px;
+  border: 1px solid rgb(15, 15, 15);
+  background-color: white;
+  z-index: 1002;
+  overflow: auto;
+}
+.white_content  img{
+    height: 90%;
+}
+
+#capture:hover{
+    width: 390px;
+  height: 360px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  background-color:rgba(0, 128, 0,0.9);
+  color: black;
+}
+
+#English:hover{
+  width: 280px;
+  height: 333px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  background-color:rgba(0, 128, 0,0.9);
+  color: black;
+}
+
+</style>
+</head>
+<body>
+
+    <center><h1>TEXT READER FOR BLIND PERSON</h1></center>
+    <center>
+   <div id="capture" >
+    <pre>
+<form action="{{ url_for('predict_video')}}"method="post"  >
+    <button type="submit" class="button">CAPTURE FROM VIDEO</button>
+</form>
+<textarea>
+    {{prediction_text0}}
+</textarea>
+</pre>
+
+<pre>
+<form action="{{ url_for('read_video')}}"method="post" >
+    <button type="submit" class="button" onclick="newwindow()">READ VIDEO TEXT</button>
+</form>
+<textarea>
+    {{prediction_text1}}
+</textarea>
+</pre>
+   </div>
+   </center>
+<br>
+<br>
+<div id="lang">
+
+    <!-- English -->
+    <div id="English" >
+        <form action = "/success" method = "post" enctype="multipart/form-data" id="deco">
+            <input type="file" name="file" id="deco" /><br><br>
+            <input type = "submit" value="Upload English" id="deco">
+        </form>
+    <pre>
+    <form action="{{ url_for('predict')}}"method="post">
+    <button type="submit" class="button" onclick="newwindow()" >READ ENGLISH</button>
+    
+    </form>
+ 
+    <textarea>
+        {{prediction_text}}
+     </textarea>
+    </pre>
+    </div>
+                              
+
+   
+<!-- HINDI -->
+
+ <div id="English">
+    <form action = "/success2" method = "post" id="deco" enctype="multipart/form-data" id="deco">
+        <input type="file" name="file" id="deco" /><br><br>
+        <input type = "submit" value="Upload Hindi" id="deco">
+    </form>
+<pre>
+<form action="{{ url_for('predict2')}}"method="post">
+  <button type="submit" class="button" onclick="newwindow()" >READ HINDI</button>
+</form>
+<br><br>
+<textarea>
+                                                        {{prediction_text2}}
+                                                        </textarea>
+                                                        </pre>
+</div>                                    
+ 
+
+                                                        
+
+
+                                   <!-- JAPANESE -->
+<div id="English">
+    <form action = "/success3" method = "post" id="deco" enctype="multipart/form-data" id="deco">
+        <input type="file" name="file" id="deco" /><br><br>
+        <input type = "submit" value="Upload Japanese" id="deco">
+    </form>
+<pre>
+<form action="{{ url_for('predict3')}}"method="post">
+   <button type="submit" class="button" onclick="newwindow()">READ JAPANESE</button>
+</form>
+<br><br>
+<textarea>
+    {{prediction_text3}}
+</textarea>
+</pre> 
+
+
+</div> 
+
+<!-- RUSSIAN -->
+ <div id="English">
+    <form action = "/success4" method = "post"id="deco" enctype="multipart/form-data" id="deco">
+        <input type="file" name="file" id="deco"/><br><br>
+        <input type = "submit" value="Upload Russian" id="deco">
+</form>
+<pre>
+<form action="{{ url_for('predict4')}}"method="post">
+ <button type="submit" class="button" onclick="newwindow()" >READ RUSSIAN</button>
+</form>
+<br><br>
+<textarea>
+    {{prediction_text4}}
+</textarea>
+</pre>
+
+</div>
+<div>
+    <div id="light" class="white_content">
+        <img src="https://cdn.dribbble.com/users/673428/screenshots/6256511/chatbot-kiu.gif">
+    </div>
+</div>
+ 
+</div>
+    <script>
+        function newwindow(){
+            myWindow = window.open("https://cdn.dribbble.com/users/673428/screenshots/6256511/chatbot-kiu.gif", "_blank", "top=0,left=900,width=500, height=500");
+   
+     
+        }
+    </script>                                         
+</body>
+</html>
+
